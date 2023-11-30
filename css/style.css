@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.width_{
+    width: 1000px;
+    height: 1000px;
+ }
+.square{
+    background-color: rgb(43, 255, 0);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+   
+}
+
+.clicked{
+    background-color: aqua;
+}
+
+
+.square3{
+    width:calc(100% / 10) ;
+    height:calc(100% / 10) ;
+    background-color: rgb(43, 255, 0);
+    border: 1px solid black;
+}
