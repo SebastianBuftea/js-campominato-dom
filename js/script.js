@@ -7,21 +7,9 @@ function cellGenerator(number, row_numbercell){
     return element;
 }
 
-/* creeo la funzione che mi cambi il colore */
-function cambioColore(x, y, arrayBomb){
-    x.addEventListener("click", function(){
-        if(arrayBomb.includes(y)){
-             this.classList.toggle("bomb")
-        }
-        else{
-            this.classList.toggle("no_bomb")
-        }
-       
-    })
-}
 
 //creo il generatore di bombe
-function bombGenerator( num_cell){
+function bombGenerator(num_cell){
 
     let arrayBomb=[];
     let numrandom;
@@ -47,6 +35,7 @@ function grillGenerator(){
     let cellNumber;
     let rowCell;
    
+    
     grid.innerHTML=""
      if(difficultySelect==1){
         cellNumber=100
@@ -59,15 +48,35 @@ function grillGenerator(){
          }
 
     rowCell= Math.sqrt(cellNumber);
-      
+
+    let points=0;
     for(let i=1; i<=cellNumber; i++){
         let cell= cellGenerator(i, rowCell );
         grid.appendChild(cell); 
   
+        gameOver=false; 
+        //creo la costante bomb a cui affido l array contenente i numeri casuali 
+        const bomb=bombGenerator(cellNumber)
         //creo l evento in cui al click su una cella questa cambi colore se selezionato
-         cambioColore(cell, i, bombGenerator(cellNumber)  )
+        cell.addEventListener("click", function(){
+        
+           if (gameOver== false){
+                   if(bomb.includes(i)){
+                       this.classList.toggle("bomb")
+                       gameOver=true;
+                   }
+                   else{
+                       this.classList.toggle("no_bomb") 
+                       points=points+1;
+                   } 
+                  } 
+                 document.getElementById("your_score").innerText=`Your score is ${points}`;
+        })
+         
+       
+        
     } 
-   
+  
    
 }
 
@@ -81,6 +90,8 @@ const button= document.getElementById("genera")
 button.addEventListener("click", function(){
 
 grillGenerator()
+
+
 })
 
 
