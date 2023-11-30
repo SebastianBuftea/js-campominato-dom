@@ -2,6 +2,7 @@
 function cellGenerator(number, row_numbercell){
     const element = document.createElement("div");
     element.classList.add("square");
+    element.setAttribute("id", `${number}`); 
     element.style.width= `calc(100% / ${row_numbercell} )`
     element.innerText= number;
     return element;
@@ -71,7 +72,8 @@ function grillGenerator(){
                 if (gameOver== false){
                     if(bomb.includes(i)){
                         this.classList.toggle("bomb")
-                        gameOver=true;
+                        gameOver=true; 
+                        
                     }
                     else{
                         this.classList.toggle("no_bomb") 
@@ -79,10 +81,25 @@ function grillGenerator(){
                     } 
                 } 
                 document.getElementById("your_score").innerText=`Your score is ${points}`;
-           }      
-        }) 
-        
-    }   
+             }
+
+             //bonus del cliccare su una errata e si accendono tutte
+        if(gameOver==true){
+
+                for(let i=0; i<16; i++){
+                    let placebomb=bomb[i];
+                        for(let i=1; i<=cellNumber; i++){
+                            if(placebomb==i){
+                                document.getElementById(`${i}`).style.backgroundColor="red"
+                            }
+                        }
+
+                    }
+         }
+              
+     }) 
+         
+ }
 }
 
 
