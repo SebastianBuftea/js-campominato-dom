@@ -17,7 +17,11 @@
    
 }
 
-.clicked{
+.bomb{
+    background-color: rgb(255, 0, 0);
+}
+
+.no_bomb{
     background-color: aqua;
 }
 

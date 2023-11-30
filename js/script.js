@@ -1,5 +1,4 @@
 // mi creo la funzione generatrice di celle
-
 function cellGenerator(number, row_numbercell){
     const element = document.createElement("div");
     element.classList.add("square");
@@ -9,18 +8,24 @@ function cellGenerator(number, row_numbercell){
 }
 
 /* creeo la funzione che mi cambi il colore */
-function cambioColore(x, y){
+function cambioColore(x, y, arrayBomb){
     x.addEventListener("click", function(){
-        this.classList.toggle("clicked")
-        console.log(y)
+        if(arrayBomb.includes(y)){
+             this.classList.toggle("bomb")
+        }
+        else{
+            this.classList.toggle("no_bomb")
+        }
+       
     })
 }
 
 //creo il generatore di bombe
 function bombGenerator( num_cell){
+
     let arrayBomb=[];
     let numrandom;
-    
+
         for(let i=0; i<16; i++){ 
             let check =true;
             while(check){
@@ -35,14 +40,13 @@ function bombGenerator( num_cell){
 }
 
 
-//creo il ciclo che mi crei la griglia
+//creo la fuzione che  mi crei la griglia
 function grillGenerator(){
     const grid= document.getElementById("grid");
     let difficultySelect= parseInt(document.getElementById("difficultyLevel").value)
     let cellNumber;
     let rowCell;
    
-
     grid.innerHTML=""
      if(difficultySelect==1){
         cellNumber=100
@@ -55,18 +59,16 @@ function grillGenerator(){
          }
 
     rowCell= Math.sqrt(cellNumber);
-    console.log(rowCell)
       
     for(let i=1; i<=cellNumber; i++){
         let cell= cellGenerator(i, rowCell );
         grid.appendChild(cell); 
-
-       
-        
-        //creo l evento in cui al click su una cella qeusta cambi colore ed emetta un messaggio
-        cambioColore(cell, i)
+  
+        //creo l evento in cui al click su una cella questa cambi colore se selezionato
+         cambioColore(cell, i, bombGenerator(cellNumber)  )
     } 
-    bombGenerator(cellNumber)
+   
+   
 }
 
 
