@@ -16,12 +16,32 @@ function cambioColore(x, y){
     })
 }
 
+//creo il generatore di bombe
+function bombGenerator( num_cell){
+    let arrayBomb=[];
+    let numrandom;
+    
+        for(let i=0; i<16; i++){ 
+            let check =true;
+            while(check){
+                numrandom=(Math.floor(Math.random() *num_cell +1))
+                if(!arrayBomb.includes(numrandom)){
+                     check= false;
+                }
+            }
+            arrayBomb.push(numrandom);         
+        }
+        return arrayBomb;
+}
+
+
 //creo il ciclo che mi crei la griglia
 function grillGenerator(){
     const grid= document.getElementById("grid");
     let difficultySelect= parseInt(document.getElementById("difficultyLevel").value)
     let cellNumber;
     let rowCell;
+   
 
     grid.innerHTML=""
      if(difficultySelect==1){
@@ -40,10 +60,13 @@ function grillGenerator(){
     for(let i=1; i<=cellNumber; i++){
         let cell= cellGenerator(i, rowCell );
         grid.appendChild(cell); 
+
+       
         
         //creo l evento in cui al click su una cella qeusta cambi colore ed emetta un messaggio
         cambioColore(cell, i)
-    }
+    } 
+    bombGenerator(cellNumber)
 }
 
 
