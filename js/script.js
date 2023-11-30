@@ -50,38 +50,40 @@ function grillGenerator(){
     rowCell= Math.sqrt(cellNumber);
 
     let points=0;
+    const bomb=bombGenerator(cellNumber)
+    console.log(bomb)
     for(let i=1; i<=cellNumber; i++){
         let cell= cellGenerator(i, rowCell );
         grid.appendChild(cell); 
   
         gameOver=false; 
         //creo la costante bomb a cui affido l array contenente i numeri casuali 
-        const bomb=bombGenerator(cellNumber)
+      
         //creo l evento in cui al click su una cella questa cambi colore se selezionato
         cell.addEventListener("click", function(){
         
-           if (gameOver== false){
-                   if(bomb.includes(i)){
-                       this.classList.toggle("bomb")
-                       gameOver=true;
-                   }
-                   else{
-                       this.classList.toggle("no_bomb") 
-                       points=points+1;
-                   } 
-                  } 
-                 document.getElementById("your_score").innerText=`Your score is ${points}`;
-        })
-         
-       
+            //controllo se sono state trovate tutte le caselle senza bomba
+           if(points ==cellNumber-16 ){ 
+              document.getElementById("your_score").innerText=`partita finita hai vinto e totalizzato il massimo dei punti ${points} punti`;
+           } 
+           else{
+                //controllo se è stata trovata una bomba
+                if (gameOver== false){
+                    if(bomb.includes(i)){
+                        this.classList.toggle("bomb")
+                        gameOver=true;
+                    }
+                    else{
+                        this.classList.toggle("no_bomb") 
+                        points=points+1;
+                    } 
+                } 
+                document.getElementById("your_score").innerText=`Your score is ${points}`;
+           }      
+        }) 
         
-    } 
-  
-   
+    }   
 }
-
-
-
 
 
 //mi collego al bottone che fara eseguire la creazione
@@ -90,8 +92,6 @@ const button= document.getElementById("genera")
 button.addEventListener("click", function(){
 
 grillGenerator()
-
-
 })
 
 
