@@ -21,10 +21,3 @@
     background-color: aqua;
 }
 
-
-.square3{
-    width:calc(100% / 10) ;
-    height:calc(100% / 10) ;
-    background-color: rgb(43, 255, 0);
-    border: 1px solid black;
-}
